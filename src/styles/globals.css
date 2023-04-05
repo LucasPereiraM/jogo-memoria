@@ -105,3 +105,39 @@ a {
     color-scheme: dark;
   }
 }
+
+.colorGreen{
+  background-color: green;
+}
+
+.colorBlue{
+  background: blue;
+}
+
+.colorRed{
+  background-color: red;
+}
+
+.colorChocolate{
+  background-color: chocolate;
+}
+
+.colorSalmon{
+  background-color:darksalmon;
+}
+
+.colorWhite{
+  background-color: antiquewhite;
+}
+
+.colorViolet{
+  background-color: violet;
+}
+
+.colorSlateBlue{
+  background-color:darkslateblue;
+}
+
+.colorGold{
+  background-color: gold;
+}

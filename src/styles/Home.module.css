@@ -5,6 +5,7 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  background-color:rgb(35, 30, 54);
 }
 
 .description {
@@ -275,4 +276,14 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.colorSquare {
+  width: 100px;
+  height: 100px;
+  transform: scale(1);
+}
+.colorSquare:active {
+  transform: scale(0.95);
+  transition: transform .2s;
 }

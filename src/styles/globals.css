@@ -118,6 +118,14 @@ a {
   background-color: red;
 }
 
+.colorGold{
+  background-color: gold;
+}
+
+.colorActive{
+  filter: brightness(50%);
+}
+
 .colorChocolate{
   background-color: chocolate;
 }
@@ -136,8 +144,4 @@ a {
 
 .colorSlateBlue{
   background-color:darkslateblue;
-}
-
-.colorGold{
-  background-color: gold;
 }

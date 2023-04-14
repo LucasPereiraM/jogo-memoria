@@ -2,79 +2,57 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
-  const [ color, setColor ] = useState("colorGreen");
-  const possibleColors = ['colorBlue','colorGreen','colorRed','colorChocolate','colorSalmon','colorWhite','colorViolet','colorSlateBlue','colorGold'];
+  const [color, setColor] = useState("colorGreen");
+  const possibleColors = ['colorBlue', 'colorGreen', 'colorRed', 'colorGold'];
 
   const red = 'colorRed';
   const blue = 'colorBlue';
   const green = 'colorGreen';
-  const chocolate = 'colorChocolate';
-  const salmon = 'colorSalmon';
-  const white = 'colorWhite';
-  const violet = 'colorViolet';
-  const slateBlue = 'colorSlateBlue';
   const gold = 'colorGold';
-  
+
   const randomColorIndex = () => {
-    return Math.floor(Math.random()*possibleColors.length);
+    return Math.floor(Math.random() * possibleColors.length);
   }
-  
-  const pickColors = ()=>{
+
+  const pickColors = () => {
     const array = [];
-    for (let i = 0; i<4;i++){
+    for (let i = 0; i < 4; i++) {
       array.push(possibleColors[randomColorIndex()]);
     }
     return array;
   };
 
-  const [pickedColors,setPickedColors] = useState(pickColors());
+  const [pickedColors, setPickedColors] = useState(pickColors());
 
-  useEffect(()=>{
-    document.getElementById('modalButton').onclick = () =>{
+  useEffect(() => {
+    document.getElementById('modalButton').onclick = () => {
       setPickedColors(pickColors());
     };
   })
 
   const clickedColors = [];
 
-  useEffect( ()=> {
-    document.getElementById('squareRed').onclick = () =>{
-      clickedColors.push('colorRed');
+  const colorPush = (color) =>{
+    document.getElementById('square' + color).onclick = () => {
+      clickedColors.push('color' + color);
     };
-    document.getElementById('squareBlue').onclick = () =>{
-      clickedColors.push('colorBlue');
-    };
-    document.getElementById('squareGreen').onclick = () =>{
-      clickedColors.push('colorGreen');
-    };
-    document.getElementById('squareSalmon').onclick = () =>{
-      clickedColors.push('colorSalmon');
-    };
-    document.getElementById('squareWhite').onclick = () =>{
-      clickedColors.push('colorWhite');
-    };
-    document.getElementById('squareViolet').onclick = () =>{
-      clickedColors.push('colorViolet');
-    };
-    document.getElementById('squareSlateBlue').onclick = () =>{
-      clickedColors.push('colorSlateBlue');
-    };
-    document.getElementById('squareGold').onclick = () =>{
-      clickedColors.push('colorGold');
-    };
-    document.getElementById('squareChocolate').onclick = () =>{
-      clickedColors.push('colorChocolate');
-    };
+  }
+
+  useEffect(() => {
+    colorPush('Blue');
+    colorPush('Green');
+    colorPush('Red');
+    colorPush('Gold');
   })
 
   const compareArrays = (pickedColors, clickedColors) => {
-    if (pickedColors.length !== clickedColors.length) 
+    if (pickedColors.length !== clickedColors.length)
       return false;
     else {
       // Comparing each element of your array
@@ -87,17 +65,27 @@ export default function Home() {
     }
   };
 
-  useEffect(()=>{
-    document.getElementById('verifyResult').onclick = () =>{
-      if(compareArrays(pickedColors,clickedColors) == true){
+  useEffect(() => {
+    document.getElementById('verifyResult').onclick = () => {
+      if (compareArrays(pickedColors, clickedColors) == true) {
         document.getElementById('textResult').innerHTML = "CORRETO!";
       }
-      else{
+      else {
         document.getElementById('textResult').innerHTML = "ERRADO!";
       }
 
     };
   })
+
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+  
+  const handleClick = async event => {
+    document.getElementById('squareRed').classList.add('colorActive')
+    await delay(1000);
+    document.getElementById('squareRed').classList.remove('colorActive')
+  };
 
   return (
     <>
@@ -112,25 +100,23 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
 
-        <div className={styles.grid}>
+        <div className={styles.grid + styles.center}>
           <div className={styles.colorSquare + ' ' + red} id="squareRed" ></div>
-          <div className={styles.colorSquare + ' ' + blue} id="squareBlue"></div>
-          <div className={styles.colorSquare + ' ' + green} id="squareGreen"></div>
-          <div className={styles.colorSquare + ' ' + salmon} id="squareSalmon"></div>
         </div>
 
-        <div className={styles.grid}>
-          <div className={styles.colorSquare + ' ' + white} id="squareWhite"></div>
-          <div className={styles.colorSquare + ' ' + violet} id="squareViolet"></div>
-          <div className={styles.colorSquare + ' ' + slateBlue} id="squareSlateBlue"></div>
+        <div className={styles.grid + styles.center}>
+          <div className={styles.colorSquare + ' ' + blue} id="squareBlue"></div>
+        </div>
+
+        <div className={styles.grid + styles.center}>
+          <div className={styles.colorSquare + ' ' + green} id="squareGreen"></div>
+        </div>
+
+        <div className={styles.grid + styles.center}>
           <div className={styles.colorSquare + ' ' + gold} id="squareGold"></div>
         </div>
 
-        <div className={styles.grid}>
-          <div className={styles.colorSquare + ' ' + chocolate} id="squareChocolate"></div>
-        </div>
-
-        <button class="btn btn-primary" id='sequenceButton'>
+        <button class="btn btn-primary" id='sequenceButton' onClick={handleClick}>
           Reproduzir sequência
         </button>
 
@@ -150,9 +136,9 @@ export default function Home() {
               <div class="modal-body">
                 <div className={styles.grid}>
                   <div className={styles.colorSquare + ' ' + pickedColors[0]}></div>
-                  <div className={styles.colorSquare + ' ' + pickedColors[1] }></div>
-                  <div className={styles.colorSquare + ' ' + pickedColors[2] }></div>
-                  <div className={styles.colorSquare + ' ' + pickedColors[3] }></div>
+                  <div className={styles.colorSquare + ' ' + pickedColors[1]}></div>
+                  <div className={styles.colorSquare + ' ' + pickedColors[2]}></div>
+                  <div className={styles.colorSquare + ' ' + pickedColors[3]}></div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -162,12 +148,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
         <div id='gameResult'>
           <button id='verifyResult'>
             Verificar
           </button>
-          <p id = 'textResult'>
+          <p id='textResult'>
           </p>
         </div>
 

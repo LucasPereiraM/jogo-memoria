@@ -31,14 +31,14 @@ export default function Home() {
   const [pickedColors, setPickedColors] = useState(pickColors());
 
   useEffect(() => {
-    document.getElementById('modalButton').onclick = () => {
+    document.getElementById('sequenceButton').onclick = () => {
       setPickedColors(pickColors());
     };
   })
 
   const clickedColors = [];
 
-  const colorPush = (color) =>{
+  const colorPush = (color) => {
     document.getElementById('square' + color).onclick = () => {
       clickedColors.push('color' + color);
     };
@@ -80,11 +80,43 @@ export default function Home() {
   const delay = ms => new Promise(
     resolve => setTimeout(resolve, ms)
   );
-  
-  const handleClick = async event => {
-    document.getElementById('squareRed').classList.add('colorActive')
-    await delay(1000);
-    document.getElementById('squareRed').classList.remove('colorActive')
+
+  const sequencePlay = async event => {
+
+    for (var i = 0; i < pickedColors.length; i++) {
+      switch (pickedColors[i]) {
+        case 'colorRed':
+          document.getElementById('squareRed').classList.add('colorActive');
+          await delay(500);
+          document.getElementById('squareRed').classList.remove('colorActive');
+          await delay(500);
+          break;
+
+        case 'colorGreen':
+          document.getElementById('squareGreen').classList.add('colorActive');
+          await delay(500);
+          document.getElementById('squareGreen').classList.remove('colorActive');
+          await delay(500);
+          break;
+
+        case 'colorBlue':
+          document.getElementById('squareBlue').classList.add('colorActive');
+          await delay(500);
+          document.getElementById('squareBlue').classList.remove('colorActive');
+          await delay(500);
+          break;
+
+        case 'colorGold':
+          document.getElementById('squareGold').classList.add('colorActive');
+          await delay(500);
+          document.getElementById('squareGold').classList.remove('colorActive');
+          await delay(500);
+          break;
+
+        default:
+          break;
+      }
+    }
   };
 
   return (
@@ -116,38 +148,9 @@ export default function Home() {
           <div className={styles.colorSquare + ' ' + gold} id="squareGold"></div>
         </div>
 
-        <button class="btn btn-primary" id='sequenceButton' onClick={handleClick}>
+        <button class="btn btn-primary" id='sequenceButton' onClick={sequencePlay}>
           Reproduzir sequência
         </button>
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalLongoExemplo" id='modalButton'>
-          Sequência de Cores
-        </button>
-
-        <div class="modal fade" id="ModalLongoExemplo" tabIndex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalLongoExemplo">Sequência de cores</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div className={styles.grid}>
-                  <div className={styles.colorSquare + ' ' + pickedColors[0]}></div>
-                  <div className={styles.colorSquare + ' ' + pickedColors[1]}></div>
-                  <div className={styles.colorSquare + ' ' + pickedColors[2]}></div>
-                  <div className={styles.colorSquare + ' ' + pickedColors[3]}></div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Salvar mudanças</button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div id='gameResult'>
           <button id='verifyResult'>

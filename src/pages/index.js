@@ -148,7 +148,7 @@ export default function Home() {
           <div className={styles.colorSquare + ' ' + gold} id="squareGold"></div>
         </div>
 
-        <button class="btn btn-primary" id='sequenceButton' onClick={sequencePlay}>
+        <button className="btn btn-primary" id='sequenceButton' onClick={sequencePlay}>
           Reproduzir sequência
         </button>
 

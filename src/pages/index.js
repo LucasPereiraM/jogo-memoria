@@ -65,6 +65,27 @@ export default function Home() {
     }
   };
 
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+  const blinkColor = async color => {
+    const colorSquare = 'square' + color.slice(5);
+    document.getElementById(colorSquare).classList.add('colorActive');
+    await delay(500);
+    
+    document.getElementById(colorSquare).classList.remove('colorActive');
+    await delay(500);
+  };
+  
+  const sequencePlay = async event => {
+    for (let i = 0; i < pickedColors.length; i++) {
+      await delay(500);
+      blinkColor(pickedColors[i]);
+      await delay(500);
+    }
+  };
+
   useEffect(() => {
     document.getElementById('verifyResult').onclick = () => {
       if (compareArrays(pickedColors, clickedColors) == true) {
@@ -76,48 +97,6 @@ export default function Home() {
 
     };
   })
-
-  const delay = ms => new Promise(
-    resolve => setTimeout(resolve, ms)
-  );
-
-  const sequencePlay = async event => {
-
-    for (var i = 0; i < pickedColors.length; i++) {
-      switch (pickedColors[i]) {
-        case 'colorRed':
-          document.getElementById('squareRed').classList.add('colorActive');
-          await delay(500);
-          document.getElementById('squareRed').classList.remove('colorActive');
-          await delay(500);
-          break;
-
-        case 'colorGreen':
-          document.getElementById('squareGreen').classList.add('colorActive');
-          await delay(500);
-          document.getElementById('squareGreen').classList.remove('colorActive');
-          await delay(500);
-          break;
-
-        case 'colorBlue':
-          document.getElementById('squareBlue').classList.add('colorActive');
-          await delay(500);
-          document.getElementById('squareBlue').classList.remove('colorActive');
-          await delay(500);
-          break;
-
-        case 'colorGold':
-          document.getElementById('squareGold').classList.add('colorActive');
-          await delay(500);
-          document.getElementById('squareGold').classList.remove('colorActive');
-          await delay(500);
-          break;
-
-        default:
-          break;
-      }
-    }
-  };
 
   return (
     <>

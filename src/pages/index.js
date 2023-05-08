@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
-
 export default function Home() {
   const [color, setColor] = useState("colorGreen");
   const possibleColors = ['colorBlue', 'colorGreen', 'colorRed', 'colorGold'];

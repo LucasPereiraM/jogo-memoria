@@ -20,19 +20,21 @@ export default function Home() {
     return Math.floor(Math.random() * possibleColors.length);
   }
 
-  const pickColors = () => {
+  const [amount, setAmount] = useState(1);
+
+  const pickColors = (numberOfColors) => {
     const array = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < numberOfColors; i++) {
       array.push(possibleColors[randomColorIndex()]);
     }
     return array;
   };
 
-  const [pickedColors, setPickedColors] = useState(pickColors());
+  const [pickedColors, setPickedColors] = useState(pickColors(amount));
 
   useEffect(() => {
     document.getElementById('sequenceButton').onclick = () => {
-      setPickedColors(pickColors());
+      setPickedColors(pickColors(amount));
     };
   })
 
@@ -58,7 +60,10 @@ export default function Home() {
       // Comparing each element of your array
       for (var i = 0; i < pickedColors.length; i++) {
         if (pickedColors[i] !== clickedColors[i]) {
+          setAmount(1);
           return false;
+        } else {
+          setAmount(amount + 1);
         }
       }
       return true;
@@ -73,11 +78,11 @@ export default function Home() {
     const colorSquare = 'square' + color.slice(5);
     document.getElementById(colorSquare).classList.add('colorActive');
     await delay(500);
-    
+
     document.getElementById(colorSquare).classList.remove('colorActive');
     await delay(500);
   };
-  
+
   const sequencePlay = async event => {
     for (let i = 0; i < pickedColors.length; i++) {
       await delay(500);
@@ -89,12 +94,11 @@ export default function Home() {
   useEffect(() => {
     document.getElementById('verifyResult').onclick = () => {
       if (compareArrays(pickedColors, clickedColors) == true) {
-        document.getElementById('textResult').innerHTML = "CORRETO!";
+        document.getElementById('textResult').innerHTML = amount;
       }
       else {
         document.getElementById('textResult').innerHTML = "ERRADO!";
       }
-
     };
   })
 
@@ -132,12 +136,12 @@ export default function Home() {
         </button>
 
         <div id='gameResult'>
-          <button id='verifyResult'>
+          <button id='verifyResult' className="btn btn-primary">
             Verificar
           </button>
-          <p id='textResult'>
-          </p>
         </div>
+
+        <span class="badge badge-dark" id='textResult'>ACERTOS</span>
 
       </main>
     </>

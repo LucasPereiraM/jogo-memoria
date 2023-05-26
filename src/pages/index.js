@@ -4,11 +4,12 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import { useState, useEffect } from 'react';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [color, setColor] = useState("colorGreen");
   const possibleColors = ['colorBlue', 'colorGreen', 'colorRed', 'colorGold'];
+  const [amount, setAmount] = useState(0);
 
   const red = 'colorRed';
   const blue = 'colorBlue';
@@ -19,23 +20,26 @@ export default function Home() {
     return Math.floor(Math.random() * possibleColors.length);
   }
 
-  const [amount, setAmount] = useState(1);
+  let stageColors = [];
 
-  const pickColors = (numberOfColors) => {
+  const pickColors = () => {
     const array = [];
-    for (let i = 0; i < numberOfColors; i++) {
+    for (let i = 0; i < 10; i++) {
       array.push(possibleColors[randomColorIndex()]);
     }
     return array;
   };
 
-  const [pickedColors, setPickedColors] = useState(pickColors(amount));
+  const [pickedColors, setPickedColors] = useState(pickColors());
+
 
   useEffect(() => {
     document.getElementById('sequenceButton').onclick = () => {
-      setPickedColors(pickColors(amount));
+      setPickedColors(pickColors());
+      sequencePlay(amount);
     };
   })
+
 
   const clickedColors = [];
 
@@ -45,27 +49,10 @@ export default function Home() {
     };
   }
 
-  useEffect(() => {
-    colorPush('Blue');
-    colorPush('Green');
-    colorPush('Red');
-    colorPush('Gold');
-  })
-
-  const compareArrays = (pickedColors, clickedColors) => {
-    if (pickedColors.length !== clickedColors.length)
-      return false;
+  const compareArrays = (completeArray, partialArray) => {
+    if (partialArray.toString() != completeArray.slice(0,(partialArray.length)).toString()) return false;
     else {
-      // Comparing each element of your array
-      for (var i = 0; i < pickedColors.length; i++) {
-        if (pickedColors[i] !== clickedColors[i]) {
-          setAmount(1);
-          return false;
-        } else {
-          setAmount(amount + 1);
-        }
-      }
-      return true;
+      if(partialArray.length == completeArray) return true;
     }
   };
 
@@ -82,24 +69,34 @@ export default function Home() {
     await delay(500);
   };
 
-  const sequencePlay = async event => {
-    for (let i = 0; i < pickedColors.length; i++) {
+  const sequencePlay = async amount => {
+    for (let i = 0; i <= amount; i++) {
       await delay(500);
       blinkColor(pickedColors[i]);
       await delay(500);
     }
   };
 
-  useEffect(() => {
-    document.getElementById('verifyResult').onclick = () => {
-      if (compareArrays(pickedColors, clickedColors) == true) {
+  const addClickerCheck = (color) => {
+    document.getElementById('square' + color).onclick = () => {
+      clickedColors.push('color' + color);
+      if (!compareArrays(pickedColors, clickedColors)) {
+        document.getElementById('textResult').innerHTML = "ERRADO!";
+        setAmount(0);
+      } else {
+        setAmount(amount+1);
         document.getElementById('textResult').innerHTML = amount;
       }
-      else {
-        document.getElementById('textResult').innerHTML = "ERRADO!";
-      }
-    };
+    }
+  }
+
+  useEffect(() => {
+    addClickerCheck('Blue');
+    addClickerCheck('Green');
+    addClickerCheck('Red');
+    addClickerCheck('Gold');
   })
+
 
   return (
     <>
@@ -113,6 +110,8 @@ export default function Home() {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       </Head>
       <main className={styles.main}>
+
+        <div id='divTeste' value = ""></div>
 
         <div className={styles.grid + styles.center}>
           <div className={styles.colorSquare + ' ' + red} id="squareRed" ></div>
@@ -133,12 +132,6 @@ export default function Home() {
         <button className="btn btn-primary" id='sequenceButton' onClick={sequencePlay}>
           Reproduzir sequência
         </button>
-
-        <div id='gameResult'>
-          <button id='verifyResult' className="btn btn-primary">
-            Verificar
-          </button>
-        </div>
 
         <span class="badge badge-dark" id='textResult'>ACERTOS</span>
 

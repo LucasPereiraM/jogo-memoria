@@ -7,9 +7,9 @@ import { useState, useEffect } from 'react';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [color, setColor] = useState("colorGreen");
   const possibleColors = ['colorBlue', 'colorGreen', 'colorRed', 'colorGold'];
   const [amount, setAmount] = useState(0);
+  const clickedColors = [];
 
   const red = 'colorRed';
   const blue = 'colorBlue';
@@ -19,8 +19,6 @@ export default function Home() {
   const randomColorIndex = () => {
     return Math.floor(Math.random() * possibleColors.length);
   }
-
-  let stageColors = [];
 
   const pickColors = () => {
     const array = [];
@@ -32,16 +30,12 @@ export default function Home() {
 
   const [pickedColors, setPickedColors] = useState(pickColors());
 
-
   useEffect(() => {
-    document.getElementById('sequenceButton').onclick = () => {
-      setPickedColors(pickColors());
+    document.getElementById('sequenceButton').onclick = async () => {
+      //setPickedColors(pickColors());
       sequencePlay(amount);
     };
   })
-
-
-  const clickedColors = [];
 
   const colorPush = (color) => {
     document.getElementById('square' + color).onclick = () => {
@@ -50,10 +44,15 @@ export default function Home() {
   }
 
   const compareArrays = (completeArray, partialArray) => {
-    if (partialArray.toString() != completeArray.slice(0,(partialArray.length)).toString()) return false;
-    else {
-      if(partialArray.length == completeArray) return true;
-    }
+    const comp1 = partialArray.toString();
+    const comp2 = completeArray.slice(0,(partialArray.length)).toString();
+   if(comp1 !== comp2){
+    return false;
+   }
+   else{
+    if(comp1.length == comp2.length)
+      return true;
+   }
   };
 
   const delay = ms => new Promise(
@@ -133,7 +132,7 @@ export default function Home() {
           Reproduzir sequência
         </button>
 
-        <span class="badge badge-dark" id='textResult'>ACERTOS</span>
+        <span className="badge badge-dark" id='textResult'>ACERTOS</span>
 
       </main>
     </>

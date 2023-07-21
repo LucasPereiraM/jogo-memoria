@@ -1,7 +1,7 @@
 {
   "name": "jogo_memoria",
   "version": "0.1.0",
-  "homepage": "https://LucasPereiraM.github.io/GameMemoria",
+  "homepage": "https://LucasPereiraM.github.io/jogo_memoria",
   "private": true,
   "scripts": {
     "predeploy": "npm run build",

@@ -5,7 +5,7 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
-  background-color:rgb(19, 14, 37);
+  background-color: rgb(19, 14, 37);
 }
 
 .description {
@@ -98,7 +98,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -126,7 +126,7 @@
 
 .thirteen::before,
 .thirteen::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }
@@ -285,5 +285,17 @@
 }
 .colorSquare:active {
   transform: scale(0.95);
-  transition: transform .2s;
+  transition: transform 0.2s;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* set column sizes here */
+  grid-template-rows: auto auto; /* we want two rows */
+
+  grid-gap: 10px; /* how far between cells? */
+  grid-auto-flow: column; /* fill in by column, not row */
+
+  /* temporary property for visualization */
+  margin-top: 250px;
 }

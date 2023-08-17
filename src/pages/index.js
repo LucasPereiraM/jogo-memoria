@@ -30,6 +30,16 @@ export default function Home() {
 
   const [amount, setAmount] = useState(0);
 
+  const [disabled, setDisabled] = useState(false);
+
+  const disableBtn = () => {
+    setDisabled(true);
+  };
+
+  const ableBtn = () => {
+    setDisabled(false);
+  };
+
   useEffect(() => {
     document.getElementById("sequenceButton").onclick = async () => {
       sequencePlay(amount);
@@ -76,6 +86,8 @@ export default function Home() {
         document.getElementById("textResult").innerHTML = "ERRADO!";
         setAmount(0);
         setAux(0);
+        ableBtn();
+        setPickedColors(pickColors());
       } else {
         if (amount == aux) {
           setAmount(amount + 1);
@@ -137,7 +149,12 @@ export default function Home() {
         </div>
 
         <div className={styles.center + styles.grid}>
-          <button className="btn btn-primary" id="sequenceButton">
+          <button
+            className="btn btn-primary"
+            id="sequenceButton"
+            disabled={disabled}
+            onClick={disableBtn}
+          >
             Reproduzir sequência
           </button>
         </div>

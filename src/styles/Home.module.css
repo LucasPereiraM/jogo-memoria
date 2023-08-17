@@ -297,5 +297,5 @@
   grid-auto-flow: column; /* fill in by column, not row */
 
   /* temporary property for visualization */
-  margin-top: 250px;
+  margin: auto;
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect, useRef } from "react";
+import track, { useTracking } from "react-tracking";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -88,12 +89,14 @@ export default function Home() {
         setAux(0);
         ableBtn();
         setPickedColors(pickColors());
+        $("#modalScore").modal("show");
       } else {
         if (amount == aux) {
           setAmount(amount + 1);
           setAux(0);
           await delay(1000);
           sequencePlay(amount + 1);
+          document.getElementById("scoreBoard").innerHTML = amount + 1;
           document.getElementById("textResult").innerHTML = amount + 1;
         }
       }
@@ -155,7 +158,7 @@ export default function Home() {
             disabled={disabled}
             onClick={disableBtn}
           >
-            Reproduzir sequência
+            Iniciar
           </button>
         </div>
 
@@ -163,6 +166,46 @@ export default function Home() {
           <span className="badge badge-dark" id="textResult">
             ACERTOS
           </span>
+        </div>
+
+        <div
+          class="modal fade"
+          id="modalScore"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="">
+                  Errou!
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" id="scoreBoard"></div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </>

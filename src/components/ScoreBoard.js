@@ -4,7 +4,7 @@ import styles from "@/styles/Home.module.css";
 import { useState, useEffect, useRef } from "react";
 import track, { useTracking } from "react-tracking";
 
-export default function ScoreBoard() {
+export default function ScoreBoard({ colorRecord }) {
   const [aux, setAux] = useState(0);
 
   const compareArrays = (completeArray, partialArray, aux) => {

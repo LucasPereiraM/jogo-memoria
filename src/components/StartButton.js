@@ -34,6 +34,7 @@ export default function StartButton() {
   useEffect(() => {
     document.getElementById("sequenceButton").onclick = async () => {
       sequencePlay(amount);
+      window.dataLayer = [];
     };
   });
 

@@ -1,7 +1,5 @@
 import styles from "@/styles/Home.module.css";
-import track, { useTracking } from "react-tracking";
-import { useState } from "react";
-import ColorsRecord from "./ColorsRecord";
+import { useTracking } from "react-tracking";
 
 const getTime = () => {
   const time =
@@ -21,7 +19,7 @@ const getTime = () => {
   return time;
 };
 
-const ButtonRed = () => {
+export default function ButtonRed(){
   const red = "colorRed";
   const { trackEvent } = useTracking();
 
@@ -38,14 +36,17 @@ const ButtonRed = () => {
             event: "HookButtonRed-Clicked",
             time: currentTime,
           });
+          localStorage.setItem("clicksInfo",JSON.stringify(window.dataLayer));
+          var storedArray = localStorage.getItem("clicksInfo");
+          var ourArray = JSON.parse(storedArray);
+          console.log(ourArray);
         }}
       ></div>
-      <ColorsRecord />
     </>
   );
 };
 
-const TrackedApp = track(
+/*const TrackedApp = track(
   { app: "my-app" },
 
   {
@@ -53,6 +54,7 @@ const TrackedApp = track(
       console.log(data);
     },
   }
-)(ButtonRed);
+)(ButtonBlue);
 
 export default TrackedApp;
+*/

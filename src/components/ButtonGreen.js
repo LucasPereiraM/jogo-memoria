@@ -19,7 +19,17 @@ const getTime = () => {
   return time;
 };
 
-export default function ButtonGreen(){
+const getDate = () => {
+  const date =
+    new Date().getDate() +
+    "/" +
+    (new Date().getMonth() + 1) +
+    "/" +
+    new Date().getFullYear();
+  return date;
+};
+
+export default function ButtonGreen() {
   const green = "colorGreen";
   const { trackEvent } = useTracking();
 
@@ -31,20 +41,23 @@ export default function ButtonGreen(){
         style={{ "border-radius": "0 100px 0 0" }}
         onClick={() => {
           const currentTime = getTime();
+          const currentDate = getDate();
           trackEvent({
-            funComponent: "HookButtonGreen",
-            event: "HookButtonGreen-Clicked",
+            gameId: 1,
+            event: "Verde",
             time: currentTime,
+            date: currentDate,
+            sound: "Off",
           });
-          localStorage.setItem("clicksInfo",JSON.stringify(window.dataLayer));
+          localStorage.setItem("clicksInfo", JSON.stringify(window.dataLayer));
           var storedArray = localStorage.getItem("clicksInfo");
-          var ourArray = JSON.parse(storedArray);
-          console.log(ourArray);
+          var colorsArray = JSON.parse(storedArray);
+          console.log(colorsArray);
         }}
       ></div>
     </>
   );
-};
+}
 
 /*const TrackedApp = track(
   { app: "my-app" },

@@ -3,12 +3,6 @@ import { useTracking } from "react-tracking";
 
 const getTime = () => {
   const time =
-    new Date().getDate() +
-    "/" +
-    new Date().getMonth() +
-    "/" +
-    new Date().getFullYear() +
-    " às " +
     new Date().getHours() +
     ":" +
     new Date().getMinutes() +
@@ -19,7 +13,17 @@ const getTime = () => {
   return time;
 };
 
-export default function ButtonRed(){
+const getDate = () => {
+  const date =
+    new Date().getDate() +
+    "/" +
+    (new Date().getMonth() + 1) +
+    "/" +
+    new Date().getFullYear();
+  return date;
+};
+
+export default function ButtonRed() {
   const red = "colorRed";
   const { trackEvent } = useTracking();
 
@@ -31,20 +35,24 @@ export default function ButtonRed(){
         style={{ "border-radius": "100px 0 0 0" }}
         onClick={() => {
           const currentTime = getTime();
+          const currentDate = getDate();
           trackEvent({
-            funComponent: "HookButtonRed",
-            event: "HookButtonRed-Clicked",
+            gameId: 1,
+            event: "Vermelho",
             time: currentTime,
+            date: currentDate,
+            sound: "Off",
+            patientId: 1,
           });
-          localStorage.setItem("clicksInfo",JSON.stringify(window.dataLayer));
+          localStorage.setItem("clicksInfo1", JSON.stringify(window.dataLayer));
           var storedArray = localStorage.getItem("clicksInfo");
-          var ourArray = JSON.parse(storedArray);
-          console.log(ourArray);
+          var colorsArray = JSON.parse(storedArray);
+          console.log(colorsArray);
         }}
       ></div>
     </>
   );
-};
+}
 
 /*const TrackedApp = track(
   { app: "my-app" },

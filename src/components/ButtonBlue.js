@@ -3,12 +3,6 @@ import { useTracking } from "react-tracking";
 
 const getTime = () => {
   const time =
-    new Date().getDate() +
-    "/" +
-    new Date().getMonth() +
-    "/" +
-    new Date().getFullYear() +
-    " às " +
     new Date().getHours() +
     ":" +
     new Date().getMinutes() +
@@ -19,7 +13,17 @@ const getTime = () => {
   return time;
 };
 
-export default function ButtonBlue(){
+const getDate = () => {
+  const date =
+    new Date().getDate() +
+    "/" +
+    (new Date().getMonth() + 1) +
+    "/" +
+    new Date().getFullYear();
+  return date;
+};
+
+export default function ButtonBlue() {
   const blue = "colorBlue";
   const { trackEvent } = useTracking();
 
@@ -30,22 +34,24 @@ export default function ButtonBlue(){
         id="squareBlue"
         style={{ "border-radius": "0 0 0 100px" }}
         onClick={() => {
-          //parentToChild();
           const currentTime = getTime();
+          const currentDate = getDate();
           trackEvent({
-            funComponent: "HookButtonBlue",
-            event: "HookButtonBlue-Clicked",
+            gameId: 1,
+            event: "Azul",
             time: currentTime,
+            date: currentDate,
+            sound: "Off",
           });
-          localStorage.setItem("clicksInfo",JSON.stringify(window.dataLayer));
+          localStorage.setItem("clicksInfo", JSON.stringify(window.dataLayer));
           var storedArray = localStorage.getItem("clicksInfo");
-          var ourArray = JSON.parse(storedArray);
-          console.log(ourArray);
+          var colorsArray = JSON.parse(storedArray);
+          console.log(colorsArray);
         }}
       ></div>
     </>
   );
-};
+}
 
 /*const TrackedApp = track(
   { app: "my-app" },
@@ -59,4 +65,3 @@ export default function ButtonBlue(){
 
 export default TrackedApp;
 */
-

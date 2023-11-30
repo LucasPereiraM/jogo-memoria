@@ -3,12 +3,6 @@ import { useTracking } from "react-tracking";
 
 const getTime = () => {
   const time =
-    new Date().getDate() +
-    "/" +
-    new Date().getMonth() +
-    "/" +
-    new Date().getFullYear() +
-    " às " +
     new Date().getHours() +
     ":" +
     new Date().getMinutes() +
@@ -19,7 +13,18 @@ const getTime = () => {
   return time;
 };
 
-export default function ButtonYellow(){
+const getDate = () => {
+  const date =
+    new Date().getDate() +
+    "/" +
+    (new Date().getMonth() + 1) +
+    "/" +
+    new Date().getFullYear();
+
+  return date;
+};
+
+export default function ButtonYellow() {
   const gold = "colorGold";
   const { trackEvent } = useTracking();
 
@@ -31,20 +36,23 @@ export default function ButtonYellow(){
         style={{ "border-radius": "0 0 100px 0" }}
         onClick={() => {
           const currentTime = getTime();
+          const currentDate = getDate();
           trackEvent({
-            funComponent: "HookButtonYellow",
-            event: "HookButtonYellow-Clicked",
+            gameId: 1,
+            event: "Amarelo",
             time: currentTime,
+            date: currentDate,
+            sound: "Off",
           });
-          localStorage.setItem("clicksInfo",JSON.stringify(window.dataLayer));
+          localStorage.setItem("clicksInfo", JSON.stringify(window.dataLayer));
           var storedArray = localStorage.getItem("clicksInfo");
-          var ourArray = JSON.parse(storedArray);
-          console.log(ourArray);
+          var colorsArray = JSON.parse(storedArray);
+          console.log(colorsArray);
         }}
       ></div>
     </>
   );
-};
+}
 
 /*const TrackedApp = track(
   { app: "my-app" },

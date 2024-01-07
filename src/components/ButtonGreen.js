@@ -3,12 +3,6 @@ import { useTracking } from "react-tracking";
 
 const getTime = () => {
   const time =
-    new Date().getDate() +
-    "/" +
-    new Date().getMonth() +
-    "/" +
-    new Date().getFullYear() +
-    " às " +
     new Date().getHours() +
     ":" +
     new Date().getMinutes() +

@@ -42,9 +42,8 @@ export default function ButtonRed() {
             time: currentTime,
             date: currentDate,
             sound: "Off",
-            patientId: 1,
           });
-          localStorage.setItem("clicksInfo1", JSON.stringify(window.dataLayer));
+          localStorage.setItem("clicksInfo", JSON.stringify(window.dataLayer));
           var storedArray = localStorage.getItem("clicksInfo");
           var colorsArray = JSON.parse(storedArray);
           console.log(colorsArray);

@@ -34,7 +34,10 @@ export default function StartButton() {
   useEffect(() => {
     document.getElementById("sequenceButton").onclick = async () => {
       sequencePlay(amount);
-      //window.dataLayer = [];
+      if(localStorage.getItem("clicksInfo")!=null){
+        var records = localStorage.getItem("clicksInfo");
+        localStorage.setItem((Math.random()*100000).toString(),records);
+      }
     };
   });
 

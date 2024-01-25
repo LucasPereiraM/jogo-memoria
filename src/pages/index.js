@@ -1,11 +1,8 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import ButtonBlue from "@/components/ButtonBlue";
-import ButtonGreen from "@/components/ButtonGreen";
-import ButtonYellow from "@/components/ButtonYellow";
-import ButtonRed from "@/components/ButtonRed";
 import StartButton from "@/components/StartButton";
 import ScoreBoard from "@/components/ScoreBoard";
+import ColorButton from "@/components/ColorButton";
 
 export default function Home() {
   return (
@@ -27,10 +24,10 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.section}>
-          <ButtonRed />
-          <ButtonBlue />
-          <ButtonGreen />
-          <ButtonYellow />
+          <ColorButton color="colorRed" />
+          <ColorButton color="colorBlue" />
+          <ColorButton color="colorGreen" />
+          <ColorButton color="colorGold" />
         </div>
         <StartButton />
         <ScoreBoard />

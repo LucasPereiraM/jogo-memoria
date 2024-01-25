@@ -108,18 +108,22 @@ a {
 
 .colorGreen {
   background-color: green;
+  border-radius: 0 100px 0 0;
 }
 
 .colorBlue {
   background: blue;
+  border-radius: 0 0 0 100px;
 }
 
 .colorRed {
   background-color: red;
+  border-radius: 100px 0 0 0;
 }
 
 .colorGold {
   background-color: gold;
+  border-radius: 0 0 100px 0;
 }
 
 .colorActive {

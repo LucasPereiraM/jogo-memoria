@@ -34,10 +34,8 @@ export default function StartButton() {
   useEffect(() => {
     document.getElementById("sequenceButton").onclick = async () => {
       sequencePlay(amount);
-      if(localStorage.getItem("clicksInfo")!=null){
-        var records = localStorage.getItem("clicksInfo");
-        localStorage.setItem((Math.random()*100000).toString(),records);
-      }
+      //var records = localStorage.getItem("clicksInfo");
+      //localStorage.setItem("clicksInfo", records);
     };
   });
 
@@ -59,11 +57,11 @@ export default function StartButton() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const blinkColor = async (color) => {
-    const colorSquare = "square" + color.slice(5);
-    document.getElementById(colorSquare).classList.add("colorActive");
+    const colorButton = color + "Button";
+    document.getElementById(colorButton).classList.add("colorActive");
     await delay(500);
 
-    document.getElementById(colorSquare).classList.remove("colorActive");
+    document.getElementById(colorButton).classList.remove("colorActive");
     await delay(500);
   };
 
@@ -76,8 +74,8 @@ export default function StartButton() {
   };
 
   const addClickerCheck = (color) => {
-    document.getElementById("square" + color).onclick = async () => {
-      if (!compareArrays(pickedColors, "color" + color, aux)) {
+    document.getElementById(color + "Button").onclick = async () => {
+      if (!compareArrays(pickedColors, color, aux)) {
         document.getElementById("textResult").innerHTML = "ERRADO!";
         setAmount(0);
         setAux(0);
@@ -98,10 +96,10 @@ export default function StartButton() {
   };
 
   useEffect(() => {
-    addClickerCheck("Blue");
-    addClickerCheck("Green");
-    addClickerCheck("Red");
-    addClickerCheck("Gold");
+    addClickerCheck("colorBlue");
+    addClickerCheck("colorGreen");
+    addClickerCheck("colorRed");
+    addClickerCheck("colorGold");
   });
 
   return (
